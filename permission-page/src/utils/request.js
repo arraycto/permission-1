@@ -1,14 +1,19 @@
 import axios from 'axios'
 import {Message} from 'element-ui';
+import router from "../router";
 
 let service = axios.create({
     baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_API : '/',
     timeout: 3000
-})
+});
 service.interceptors.response.use(
     res => {
-        if (res.status && res.status === 200 && res.data.code === 50000) {
+        if (!res.data.success) {
             Message.error(res.data.msg)
+            //处理登陆失效或者没有登陆的情况
+            if (res.data.code === 44444) {
+                router.replace("/login")
+            }
         }
         return res.data
     },

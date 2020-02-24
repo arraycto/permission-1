@@ -1,0 +1,13 @@
+server:
+  port: 8888
+spring:
+  redis:
+    password: root
+    host: localhost
+    database: 0
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://${spring.redis.host}:3306/permission?useUnicode=true&characterEncoding=utf-8
+    password: zhg99524
+    username: permission
+    driver-class-name: com.mysql.cj.jdbc.Driver

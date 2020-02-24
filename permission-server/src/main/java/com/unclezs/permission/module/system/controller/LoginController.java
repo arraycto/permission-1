@@ -1,9 +1,7 @@
 package com.unclezs.permission.module.system.controller;
 
-import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.ShearCaptcha;
-import cn.hutool.captcha.generator.MathGenerator;
-import com.unclezs.permission.common.response.ResponseResult;
+import com.unclezs.permission.common.util.VerifyCodeUtil;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,11 +15,8 @@ import java.io.IOException;
  * @date 2020.02.04 13:24
  */
 @RestController
+@RequestMapping("auth")
 public class LoginController {
-    @RequestMapping("login")
-    public ResponseResult login() {
-        return ResponseResult.error("请求失败,请先登录");
-    }
 
     /**
      * 验证码
@@ -32,12 +27,10 @@ public class LoginController {
      */
     @GetMapping("code")
     public void verifyCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ShearCaptcha captcha = CaptchaUtil.createShearCaptcha(200, 100);
-        captcha.setGenerator(new MathGenerator(1));
+        ShearCaptcha captcha = VerifyCodeUtil.getCaptcha();
         captcha.createCode();
         String code = captcha.getCode();
         req.getSession().setAttribute("login_code", code);
-        System.out.println(code);
         captcha.write(resp.getOutputStream());
     }
 }

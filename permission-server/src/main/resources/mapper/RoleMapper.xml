@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unclezs.permission.module.system.mapper.RoleMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.unclezs.permission.module.system.model.Role">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="introduce" property="introduce"/>
+        <result column="create_time" property="createTime"/>
+        <result column="enabled" property="enabled"/>
+        <result column="name_zh" property="nameZh"/>
+    </resultMap>
+    <select id="selectRoleByAdminId" resultType="com.unclezs.permission.module.system.model.Role">
+        SELECT r.id,
+               r.`name`,
+               r.introduce,
+               r.create_time,
+               r.enabled,
+               r.name_zh
+        FROM admin_role AS ar
+                 LEFT JOIN role AS r ON r.id = ar.rid and r.enabled = '1'
+        WHERE ar.aid = #{aid}
+    </select>
+    <select id="getRoleMenuIds" resultType="java.lang.String">
+        SELECT mid
+        FROM role_menu rm
+                 LEFT JOIN menu ON menu.id = rm.mid
+        WHERE rid = #{rid}
+          AND NOT EXISTS(SELECT * FROM menu WHERE pid = rm.mid)
+    </select>
+</mapper>

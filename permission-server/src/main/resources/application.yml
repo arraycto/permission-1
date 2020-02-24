@@ -1,20 +1,36 @@
-server:
-  port: 8888
 spring:
   profiles:
-    active:
-  redis:
-    password: zhg99524
-    host: 114.115.208.62
-    database: 0
+    active: dev
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://114.115.208.62:3306/permission?useUnicode=true&characterEncoding=utf-8
-    password: zhg99524
-    username: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      test-while-idle: false
   main:
     banner-mode: off
+  cache:
+    type: redis
+    redis:
+      time-to-live: 3600s
 mybatis-plus:
   global-config:
     banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+rsa:
+  privateKey: MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBANHtrETGQh9E2ZeF
+    v2DqS3IOJGL35y8e6nzJnrl2lkVkY5niZTpT/RGrgDv5tBHJbbsYu0lw7vbBmpIS
+    2+D7hKGhpqnmXcd91HYajsbvvxbnuX1i9mbCclce2AzypLfWbi4hSIiFXKgdy6OX
+    9+IX+bJ5UBkLkyYVHGdWfbWvLutLAgMBAAECgYBi2QHzxFLgPGAky9KIhOoPg384
+    prhR5MHPDnTRqXgqppGLpSG7LE8OYe3Yz8QtV+Z2YbfWZfnvcMwimgS01Fnnk0T6
+    xCjz2IJRjTzISElWyiGslFWm0qjFrVEydDucM0kw3jBmw4roeVGGKkmbR0C2QjB4
+    czdERqihZZxOgu3+kQJBAOyCViBiJcOhzzEzM9SuHcsYoi5Mwia93fzoroojNPWS
+    hmIx/PSvE3LxYzZszFBpy3uzTN1hMslu3fQg9s1MKdkCQQDjOo9HKLxnHTT0tB6h
+    1aySJqt8+8dD9rQ7J8HYrD9idcPXVZ5WyM6x0i8YGj2u+TR1KDx/9fnZlAjwOy4J
+    KYPDAkAVonqUbcX8llGos4FbRC4vhOpZB+Z+usGSwAovUrcme6fVVbNJArbpvdEQ
+    inVKKdNWVnmCisClkoG1MkrBTuVJAkAlxYA3pe/bfCFnY+GLqUcsbD0pY3j2NTY0
+    dyFj8Q4AQe8yBktxxaOGL5gge4wxX792kh+sbakAn/j0ZgH7B+mdAkAIN2hkHJPp
+    gc6L0111TdtdH/lvgxmJ9QgOd1wb5pHL2mtUUvXK3SkOF08agg3kv8I9qmDOcjs7
+    A6zEjAV7Dijn
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: D:/java/permission/permission-server/logs

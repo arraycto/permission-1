@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unclezs.permission.module.system.mapper.MenuMapper">
+    <resultMap id="MenuWithRoleMap" type="com.unclezs.permission.module.system.model.Menu">
+        <result property="reqUrl" column="req_url"/>
+        <collection property="roles" ofType="com.unclezs.permission.module.system.model.Role">
+            <result column="name" property="name"/>
+        </collection>
+    </resultMap>
+    <resultMap id="MenuRoutes" type="com.unclezs.permission.module.system.model.Menu">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="pid" property="pid"/>
+        <result column="component" property="component"/>
+        <result column="type" property="type"/>
+        <result column="path" property="path"/>
+        <result column="icon" property="icon"/>
+        <result column="hidden" property="hidden"/>
+        <result column="order_by" property="orderBy"/>
+        <association property="meta" javaType="com.unclezs.permission.module.system.model.Meta">
+            <result column="keep_alive" property="keepAlive"/>
+            <collection property="permission" ofType="java.lang.String">
+                <result column="permission"/>
+            </collection>
+        </association>
+    </resultMap>
+
+    <select id="listAllWithRoles" resultMap="MenuWithRoleMap">
+        SELECT menu.req_url, role.`name`
+        FROM menu
+                 LEFT JOIN role_menu rm ON rm.mid = menu.id
+                 LEFT JOIN role ON role.id = rm.rid and role.enabled = '1'
+    </select>
+    <select id="listRoutes" resultMap="MenuRoutes">
+        SELECT m.id,
+               m.`name`,
+               m.pid,
+               m.component,
+               m.type,
+               m.path,
+               m.icon,
+               m.keep_alive,
+               m.hidden,
+               m.order_by,
+               m1.path as permission
+        FROM menu AS m
+                 LEFT JOIN menu m1 ON m1.type = '2' AND m1.pid = m.id AND m1.id IN (SELECT DISTINCT mid
+                                                                                    FROM role_menu
+                                                                                    WHERE rid IN (SELECT rid
+                                                                                                  FROM admin_role
+                                                                                                           LEFT JOIN role ON role.id = admin_role.rid
+                                                                                                  WHERE admin_role.aid = #{adminId}
+                                                                                                    AND role.enabled = '1'))
+        WHERE m.type = '1'
+          AND m.id IN (SELECT DISTINCT mid
+                       FROM role_menu
+                       WHERE rid IN (SELECT rid
+                                     FROM admin_role
+                                              LEFT JOIN role ON role.id = admin_role.rid
+                                     WHERE admin_role.aid = #{adminId}
+                                       AND role.enabled = '1'))
+        order by m.pid, m.order_by
+    </select>
+    <select id="menuTree" resultType="com.unclezs.permission.module.system.model.vo.MenuTreeVo">
+        select pid, name as label, id
+        from menu
+        <where>
+            <if test=" type!='' &amp;&amp; type != null">
+                type = #{type}
+            </if>
+        </where>
+        order by order_by,pid asc
+    </select>
+</mapper>

@@ -1,24 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
+import Home from "../views/Home";
 
 Vue.use(VueRouter)
 
-const routes = [
+export const localRoutes = [
     {
-        path: '/',
+        path: '/login',
         name: 'login',
-        component: Login
+        component: Login,
+        hidden: true
     },
     {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/Home')
-    }
-]
+        path: '/',
+        name: '主页',
+        icon: 'el-icon-s-home',
+        hidden: true,
+        component: Home,
+        children: [
+            {
+                path: '/home',
+                component: () => import("../views/local/userCenter"),
+            }
+        ]
+    },
+
+];
 
 const router = new VueRouter({
-    routes
-})
+    routes: localRoutes
+});
 
 export default router

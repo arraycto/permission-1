@@ -1,7 +1,10 @@
 package com.unclezs.permission.common.response;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @author uncle
@@ -9,14 +12,14 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-public class ResponseResult {
+public class ResponseResult implements Serializable, Result {
     private String msg;
     private int code;
     private boolean success;
     private Object data;
 
     public static ResponseResult ok() {
-        return new ResponseResult("请求成功", 20000, true, null);
+        return new ResponseResult("success", 20000, true, null);
     }
 
     public static ResponseResult ok(String msg) {
@@ -27,8 +30,17 @@ public class ResponseResult {
         return new ResponseResult(msg, 20000, true, data);
     }
 
+    public static ResponseResult ok(Object data) {
+        return new ResponseResult("success", 20000, true, data);
+
+    }
+
+    public static ResponseResult okList(Page page) {
+        return new ResponseResult("success", 20000, true, ResponseList.list(page));
+    }
+
     public static ResponseResult error() {
-        return new ResponseResult("请求失败", 50000, false, null);
+        return new ResponseResult("failed", 50000, false, null);
     }
 
     public static ResponseResult error(String msg) {
