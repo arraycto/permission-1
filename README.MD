@@ -6,7 +6,7 @@
 
 # 涉及
 
-后端：
+#### 后端：
 
   springboot 2.2.4.RELEASE
 
@@ -28,7 +28,7 @@
 
   ....
 
-前端:
+#### 前端:
 
   vue 2
 
@@ -41,3 +41,12 @@
   element-ui 2.13.0
 
   .....   
+
+预览图
+
+#### 主页
+![Image text](http://uncle-dev.unclezs.com/index.png)
+#### 角色
+![Image text](http://uncle-dev.unclezs.com/role.png)
+#### 菜单
+![Image text](http://uncle-dev.unclezs.com/menu.png)
