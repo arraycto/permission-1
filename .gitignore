@@ -34,3 +34,4 @@ target
 /.idea
 /*.iml
 log
+/permission-server/src/main/resources/application-test.yml
