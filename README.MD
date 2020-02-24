@@ -7,6 +7,7 @@
 # 涉及
 
 后端：
+
   springboot 2.2.4.RELEASE
 
   mybatis 
@@ -26,7 +27,9 @@
   p6spy 3.87  sql执行速度检测
 
   ....
+
 前端:
+
   vue 2
 
   vue-cli 4.22
