@@ -45,8 +45,8 @@
 预览图
 
 #### 主页
-![Image text](http://uncle-dev.unclezs.com/index.png)
+![Image](http://uncle-dev.unclezs.com/index.png)
 #### 角色
-![Image text](http://uncle-dev.unclezs.com/role.png)
+![Image](http://uncle-dev.unclezs.com/role.png)
 #### 菜单
-![Image text](http://uncle-dev.unclezs.com/menu.png)
+![Image](http://uncle-dev.unclezs.com/menu.png)
