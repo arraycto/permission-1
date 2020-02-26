@@ -37,10 +37,10 @@ public class CodeGenerator {
      */
     private static DataSourceConfig getDataSourceConfig() {
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://tx.unclezs.com:3306/permission?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/permission?useUnicode=true&useSSL=false&characterEncoding=utf8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("permission");
-        dsc.setPassword("zhg99524");
+        dsc.setUsername("root");
+        dsc.setPassword("root");
         return dsc;
     }
 
