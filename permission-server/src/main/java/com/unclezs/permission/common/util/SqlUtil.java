@@ -26,7 +26,7 @@ public class SqlUtil {
     public static <T> QueryChainWrapper<T> likeAll(Class clazz, QueryChainWrapper<T> query, String text) {
         if (StrUtil.isNotEmpty(text)) {
             try {
-                Field[] fields = Admin.class.getDeclaredFields();
+                Field[] fields = clazz.getDeclaredFields();
                 int i = 0;
                 for (Field column : fields) {
                     if (i != 0) {
