@@ -90,10 +90,10 @@
                                  v-if="haveAnyPermission(['edit','del'])">
                     <template slot-scope="scope">
                         <el-button @click="showEditDialog(scope.row.id)" size="mini" type="success" icon="el-icon-edit"
-                                   :loading="loadingEdit" v-if="havePermission('edit')&&scope.row.id!=='1'" />
+                                   :loading="loadingEdit" v-if="havePermission('edit')" />
                         <el-button @click="showMenuDialog(scope.row.id)" size="mini" type="warning"
                                    icon="el-icon-user-solid"
-                                   :loading="loadingEdit" v-if="havePermission('edit')&&scope.row.id!=='1'"/>
+                                   :loading="loadingEdit" v-if="havePermission('edit')"/>
                         <el-button @click="removeOne(scope.row.id)" size="mini" type="danger" icon="el-icon-delete"
                                    v-if="havePermission('del')&&scope.row.id!=='1'"/>
                     </template>

@@ -11,7 +11,7 @@
  Target Server Version : 80019
  File Encoding         : 65001
 
- Date: 24/02/2020 13:49:47
+ Date: 27/03/2020 18:14:05
 */
 
 SET NAMES utf8mb4;
@@ -29,7 +29,7 @@ CREATE TABLE `admin`  (
   `phone` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '电话号码',
   `email` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `enabled` tinyint(1) NULL DEFAULT NULL COMMENT '是否启用',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`, `username`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '管理员' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -77,6 +77,7 @@ INSERT INTO `log` VALUES ('136d3bc4b9cc93cc9ea81a4ab52a2101', '2020-02-24 12:41:
 INSERT INTO `log` VALUES ('160c2429d7b9d8f71020cbedf4dd29bf', '2020-02-24 12:41:49', '删除管理员信息', '127.0.0.1', 'admin', 137);
 INSERT INTO `log` VALUES ('25782665653b4b65f6cddba693b0d9e9', '2020-02-24 12:40:58', '清空日志', '127.0.0.1', 'admin', 160);
 INSERT INTO `log` VALUES ('a24e292c37da921e1ee9ba78fe6fc794', '2020-02-24 12:41:11', '删除角色', '127.0.0.1', 'admin', 122);
+INSERT INTO `log` VALUES ('cd106044924a618d90bb2de7e4051b99', '2020-02-24 13:58:36', '管理员登陆', '127.0.0.1', 'admin', 9);
 INSERT INTO `log` VALUES ('f2e133d3d1026555c9d15d0f6d95f763', '2020-02-24 12:49:13', '管理员登陆', '127.0.0.1', 'admin', 2);
 
 -- ----------------------------
@@ -104,18 +105,18 @@ CREATE TABLE `menu`  (
 -- Records of menu
 -- ----------------------------
 INSERT INTO `menu` VALUES ('1', '系统管理', '0', '/Home', '1', '/system', 'el-icon-help', '/system', 1, 0, 1);
-INSERT INTO `menu` VALUES ('2', '管理员管理', '1', '/system/admin', '1', '/system/admin', 'el-icon-user-solid', '/system/admin/query/**', 2, 0, 1);
-INSERT INTO `menu` VALUES ('2_1', '添加管理员', '2', '', '2', 'add', 'el-icon-setting', '/system/admin/add/**', 2, 1, 1);
-INSERT INTO `menu` VALUES ('2_2', '删除管理员', '2', '', '2', 'del', 'el-icon-setting', '/system/admin/del/**', 3, 1, 1);
-INSERT INTO `menu` VALUES ('2_3', '编辑管理员', '2', '', '2', 'edit', 'el-icon-setting', '/system/admin/edit/**', 3, 1, 1);
-INSERT INTO `menu` VALUES ('3', '角色管理', '1', '/system/role', '1', '/system/role', 'el-icon-s-opportunity', '/system/role/query/**', 3, 0, 1);
-INSERT INTO `menu` VALUES ('3_1', '添加角色', '3', '', '2', 'add', 'el-icon-setting', '/system/role/add/**', 2, 1, 1);
-INSERT INTO `menu` VALUES ('3_2', '删除角色', '3', '', '2', 'del', 'el-icon-setting', '/system/role/del/**', 3, 1, 1);
-INSERT INTO `menu` VALUES ('3_3', '编辑角色', '3', '', '2', 'edit', 'el-icon-setting', '/system/role/edit/**', 3, 1, 1);
-INSERT INTO `menu` VALUES ('4', '菜单管理', '1', '/system/menu', '1', '/system/menu', 'el-icon-s-unfold', '/system/menu/query/**', 3, 0, 1);
-INSERT INTO `menu` VALUES ('4_1', '添加菜单', '4', '', '2', 'add', 'el-icon-setting', '/system/menu/add/**', 2, 1, 1);
-INSERT INTO `menu` VALUES ('4_2', '删除菜单', '4', '', '2', 'del', 'el-icon-setting', '/system/menu/del/**', 3, 1, 1);
-INSERT INTO `menu` VALUES ('4_3', '编辑菜单', '4', '', '2', 'edit', 'el-icon-setting', '/system/menu/edit/**', 3, 1, 1);
+INSERT INTO `menu` VALUES ('2', '管理员管理', '1', '/system/admin', '1', '/system/admin', 'el-icon-user-solid', '/admin/query/**', 2, 0, 1);
+INSERT INTO `menu` VALUES ('2_1', '添加管理员', '2', '', '2', 'add', 'el-icon-setting', '/admin/add/**', 2, 1, 1);
+INSERT INTO `menu` VALUES ('2_2', '删除管理员', '2', '', '2', 'del', 'el-icon-setting', '/admin/del/**', 3, 1, 1);
+INSERT INTO `menu` VALUES ('2_3', '编辑管理员', '2', '', '2', 'edit', 'el-icon-setting', '/admin/edit/**', 3, 1, 1);
+INSERT INTO `menu` VALUES ('3', '角色管理', '1', '/system/role', '1', '/system/role', 'el-icon-s-opportunity', '/role/query/**', 3, 0, 1);
+INSERT INTO `menu` VALUES ('3_1', '添加角色', '3', '', '2', 'add', 'el-icon-setting', '/role/add/**', 2, 1, 1);
+INSERT INTO `menu` VALUES ('3_2', '删除角色', '3', '', '2', 'del', 'el-icon-setting', '/role/del/**', 3, 1, 1);
+INSERT INTO `menu` VALUES ('3_3', '编辑角色', '3', '', '2', 'edit', 'el-icon-setting', 'role/edit/**', 3, 1, 1);
+INSERT INTO `menu` VALUES ('4', '菜单管理', '1', '/system/menu', '1', '/system/menu', 'el-icon-s-unfold', '/menu/query/**', 3, 0, 1);
+INSERT INTO `menu` VALUES ('4_1', '添加菜单', '4', '', '2', 'add', 'el-icon-setting', '/menu/add/**', 2, 1, 1);
+INSERT INTO `menu` VALUES ('4_2', '删除菜单', '4', '', '2', 'del', 'el-icon-setting', '/menu/del/**', 3, 1, 1);
+INSERT INTO `menu` VALUES ('4_3', '编辑菜单', '4', '', '2', 'edit', 'el-icon-setting', '/menu/edit/**', 3, 1, 1);
 
 -- ----------------------------
 -- Table structure for role
