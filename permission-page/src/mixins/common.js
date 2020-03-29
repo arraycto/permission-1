@@ -89,7 +89,10 @@ export default {
             })
         },
         //分页查询
-        queryPage() {
+        queryPage(curPage) {
+			if (curPage) {
+                this.params.page = curPage;
+            }
             this.loadingTable = true;
             this.request.page(this.params).then(res => {
                 if (res.success) {

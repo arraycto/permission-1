@@ -55,7 +55,7 @@
             </el-table>
         </div>
         <div class="footer" style="margin-top: 5px;">
-            <el-pagination :current-page="params.page" :page-size="params.size" @current-change="queryPage()" layout="total,prev, pager, next" :total="total" small background/>
+            <el-pagination :current-page="params.page" :page-size="params.size" @current-change="queryPage" layout="total,prev, pager, next" :total="total" small background/>
         </div>
     </div>
 </template>
